@@ -37,12 +37,13 @@
 \usepackage{eurosym} %Simbolo del euro \euro{}
   \DeclareUnicodeCharacter{20AC}{\euro{}} % simbolo euro con caracter
 \usepackage{easyfig} % para insertar facilmente imagenes
+\usepackage{csquotes} %para evitar error con babel y biblatex
 
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 % II                APARIENCIA                      II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-\usepackage[style=numeric]{biblatex} %Bibliografia para latex
+\usepackage[style=numeric,backend=biber]{biblatex} %Bibliografia para latex
 \renewcommand{\baselinestretch}{1.3}\normalsize %interlineado
 \usepackage{enumitem} %Espacios en listas itemize
   \setitemize{itemsep=-3pt,topsep=5pt,partopsep=0pt, parsep=5pt}
