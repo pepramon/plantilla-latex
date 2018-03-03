@@ -6,75 +6,91 @@
 % II            DESCRIPCIÓN DE LAS MACROS           II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-% TODO macro incluir imagenes de manera flexible
+% INCLUIR IMAGENES
+% \imagen[opt]{nombre fichero}{titulo de la imagen}
+% Opt:
+%   ancho= ancho de la imagen (por defecto escala)
+%   escala = escala de la imagen (defecto 1)
+%   etiqueta = \label por defecto, nombre fichero
+%   aquí --> opción H de figura. Defecto fase (htb)
+%   carpeta = nombre carpeta donde están imagenes
+%     ejemplo "carpeta=img/", defecto ./
+% Configuración general
+\def\ImagenDefecto{aqui, escala=0.5}
 
-% Incluir codigo c++ directamente de fuentes
+% INCLUIR CODIGO C++ DESDE FUENTES
 % \codigoc{Opciones de listing}{ruta relativa fichero}
 
-% Incluir table con entorno ltxtable desde carpeta tablas. Ejemplo achura=\textwidth
+% INCLUIR TABLAS LARGAS (dentro carpeta tablas)
 % \tabla{Nombre del fichero}{anchura}
 
-% Entorno enunciado. Caja con título enunciado coloreada de gris. Ejemplo para nuevos entoros
+% ENTORNO ENUNCIADO (titulo: enunciado. Caja gris)
 % \begin{enunciado} \\\end{enunciado}
-
 
 
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 % II           IMPLEMENTACIÓN MACROS                II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-% Incluir codigo c++ directamente de fuentes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ENTORNO ENUNCIADO (titulo: enunciado. Caja gris)
 \newcommand{\codigoc}[2]{
 	\lstinputlisting[language=C++, #2]{#1}
 }
 
-% Incluir table con entorno ltxtable desde carpeta tablas. Ejemplo achura=\textwidth
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INCLUIR TABLAS LARGAS (dentro carpeta tablas)
 \newcommand{\tabla}[2]{\LTXtable{#2}{./tablas/#1}} 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Esta macro inserta una imagen centrada que esté en la carpeta imágenes con título.
-% Pone como etiqueta para citar el fichero el nombre del fichero
-%
-%El formato es \imagen{Nombre del fichero en la carpeta}{Descripción/titulo de la imagen}{Anchura}
-%
-\newcommand{\imagen}[3]{
-	\begin{center}
-		\includegraphics[width=#3]{#1}
-		\captionof{figure}{#2}
-		\label{#1}
-	\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INCLUIR IMAGENES
+%%%%%%%%%%%%%% Creación de las claves
+\makeatletter
+\define@key{Imagen}{carpeta}{\def\Imagen@carpeta{#1}}
+\define@key{Imagen}{ancho}{\def\Imagen@ancho{#1}}
+\define@key{Imagen}{escala}{\def\Imagen@escala{#1}}
+\define@key{Imagen}{aqui}[true]{\def\Imagen@aqui{#1}}
+\define@key{Imagen}{etiqueta}{\def\Imagen@etiqueta{#1}}
+%%%%%%%%%%%%%% Valores por defecto
+\setkeys{Imagen}{\ImagenDefecto}
+%%%%%%%%%%%%%% Definición de la Macro
+\newcommand{\imagen}[3][]{
+ %se empieza un grupo para que no guarde
+ \begingroup
+  \setkeys{Imagen}{#1}
+  \ifdef\Imagen@carpeta%
+    {\def\Imagen@fichero{{\Imagen@carpeta#2}}}%
+    {\def\Imagen@fichero{#2}}
+  \ifdef\Imagen@aqui%
+    {\begin{figure}[H]}%
+    {\begin{figure}[htb]}
+      \begin{center}
+      	\ifdef\Imagen@anchura%
+      	  {\includegraphics[width=\Imagen@ancho]{\Imagen@fichero}}%
+      	  {\ifdef\Imagen@escala%
+      	    {\includegraphics[scale=\Imagen@escala]{\Imagen@fichero}}
+	        {\includegraphics{\Imagen@fichero}}
+	      }
+        \captionof{figure}{#3}
+        \ifdef\Imagen@etiqueta%
+          {\label{\Imagen@etiqueta}}%
+          {\label{#2}}
+      \end{center}
+    \end{figure}
+ \endgroup
 }
-
-
-% paquete y macro para insertarla imagen en un sitio predeterminado y exacto. Igual que comando imagen, pero se llamará imagenaqui
-
-\newcommand{\imagenaqui}[3]{
-	\begin{figure}[H]
-		\begin{center}
-			\includegraphics[width=#3]{#1}
-			\caption{#2}
-			\label{#1}
-		\end{center}
-	\end{figure}
-}
-
-%El formato es \imagen{Nombre del fichero en la carpeta}{Descripción/titulo de la imagen}{Anchura}
-%
-\newcommand{\imagenescala}[3]{
-	\begin{figure}[H]
-		\begin{center}
-			\includegraphics[scale=#3]{#1}
-			\captionof{figure}{#2}
-			\label{#1}
-		\end{center}
-	\end{figure}
-}
+\makeatother
 
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 % II           IMPLEMENTACIÓN ENTORNOS              II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-% Entorno enunciado. Caja con título enunciado coloreada de gris. Ejemplo para nuevos entoros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ENTORNO ENUNCIADO (titulo: enunciado. Caja gris)
 \newenvironment{enunciado}{% Entorno para los enunciados
     \ifx\salvarSangria\undefined
     \newlength{\salvarSangria}
