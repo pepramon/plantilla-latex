@@ -1,0 +1,24 @@
+% !TeX encoding = UTF-8
+\documentclass[a4paper,12pt,oneside]{book}
+\input{./conf/paquetes}
+\input{./conf/macros}
+
+%%%%%%%%%%%%%%%%%%Base de datos bibliogáfica%%%%%%%%%%%%%%%%%%%%%
+\addbibresource{biblio/biblio.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% Inicio del documento %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\subimport{./general/}{portada}
+\subimport{./general/}{pag-iniciales}
+	
+\subimport{./partes/capitulo1/}{capitulo1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliobrafia %%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Annexos %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subimport{./anexos/}{anexos}
+
+\end{document}

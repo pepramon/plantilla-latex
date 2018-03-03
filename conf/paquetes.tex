@@ -1,0 +1,188 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% En este fichero se importan los paquetes necesarios para que      %
+% funcione correctamente la plantilla y se configuran los paquetes  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II                MATEMATICAS                     II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{cancel} %Paquete para poder tachar en modo matemático
+\usepackage{mathtools}%Más herramientas para ecuaciones, por ejemplo el entorno flalign que permite poner las ecuaciones a la izquierda
+\usepackage{fix-cm} % \texorpdfstring{matematicas}{substitucion}
+\numberwithin{equation}{section} %reiniciar contador eq en seccion
+\renewcommand\theequation{\thesection.\arabic{equation}} %nombre equacion
+
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II                  GENERALES                     II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+\usepackage{import} % Importar fichero
+\usepackage[spanish, es-tabla]{babel} %Nombres en español y aceptar acentos
+  \spanishlcroman %Para que la numeración romana pueda salir en minusculas
+\usepackage[utf8]{inputenc} % Codificación entrada
+\usepackage[T1]{fontenc} %para incrustar fuente en PDF
+\usepackage{verbatim}  %Insertar texto literal
+\usepackage{float} %Mejora de elementos flotantes, insertar antes que hyperref
+\usepackage{hyperref} %Links dentro del pdf
+\usepackage{calc} %Habilitar cálculos
+\usepackage{pdfpages} %Incluir pdf en documento
+  \pdfsuppresswarningpagegroup=1 %Evitar errores inclusión 2 pdf en página
+\usepackage{graphicx} %Incluir imagenes en documento
+\usepackage[small]{caption} %Incluir títulos libremente
+\usepackage{framed} %Para realizar recuadros
+\usepackage{eurosym} %Simbolo del euro \euro{}
+  \DeclareUnicodeCharacter{20AC}{\euro{}} % simbolo euro con caracter
+
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II                APARIENCIA                      II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+\usepackage[style=numeric]{biblatex} %Bibliografia para latex
+\renewcommand{\baselinestretch}{1.3}\normalsize %interlineado
+\usepackage{enumitem} %Espacios en listas itemize
+  \setitemize{itemsep=-3pt,topsep=5pt,partopsep=0pt, parsep=5pt}
+  \setenumerate{itemsep=-3pt,topsep=5pt,partopsep=0pt, parsep=5pt}
+  \setdescription{itemsep=-3pt,topsep=5pt,partopsep=0pt, parsep=5pt}
+\usepackage{indentfirst} % Sangrado en cada parrafo 
+\setlength\parskip{0.3\baselineskip} %Separación entre párrafos
+\hyphenrules{nohyphenation} %No partir palabras
+\raggedbottom %No intentar distribuir el texto en vertical
+\usepackage[scaled]{helvet} %Tipo de letra helvetica
+  \renewcommand{\familydefault}{\sfdefault} %setear letras sansSerif
+\usepackage[helvet]{sfmath} %Helvetica en equaciones
+  \everymath={\sf} %setear en todos los entornos mat SS font
+\usepackage[section]{placeins} %Forzar limpieza flotante por sección
+\setcounter{tocdepth}{2} %Profundidad del índice (0 capítulo)
+\setcounter{secnumdepth}{3} %Profundidad numeración (0 capítulo)
+\numberwithin{figure}{section} %Reiniciar contador figuras con seccion
+\renewcommand\thefigure{\thesection.\arabic{equation}} %nombre figura
+
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II                FORMATO PÁGINA                  II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+\usepackage[a4paper, 			%Papel A4
+  left=3.18cm, 					%Margen izquierdo
+  right=2.54cm, 				%Margen derecho
+  top=1.25cm, 					%Margen superior
+  bottom=2.54cm, 				%Margen inferior
+  includeheadfoot]{geometry}	%Incluir pie y cabecero en tamaño pag
+\usepackage{fancyhdr} %definir pies y cabeza de pagina
+  \fancypagestyle{normal}{ %Se define el estilo normal
+    \fancyhf{} %Se limpia cualquier formato
+    \fancyfoot[C,C]{- \thepage -} % Página centrada en todas la páginas
+    %\fancyhead[C,C]{\thechapter.-\leftmark} %nº y nombre capitulo en cabecera
+    \renewcommand{\headrulewidth}{0pt} %tamaño linea separación cabeza
+    \renewcommand{\footrulewidth}{0.4pt} %tamaño linea separación pie
+  }
+  \fancypagestyle{solo-pie}{ %Se define el estilo normal
+    \fancyhf{} %Se limpia cualquier formato
+    \fancyfoot[C,C]{- \thepage -} % Página centrada en todas la páginas
+    \renewcommand{\headrulewidth}{0pt} %tamaño linea separación cabeza
+    \renewcommand{\footrulewidth}{0.4pt} %tamaño linea separación pie
+  }
+  \fancypagestyle{plain}{\pagestyle{solo-pie}} %Estilo plain en titulos capitulo e indice, se asigna el estilo solo-pie
+  \pagestyle{normal} %Estilo general del documento
+  \renewcommand{\chaptermark}[1]{\markboth{#1}{}} %Borrar "Capítulo" de leftmark
+
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II                FORMATO TITULOS                 II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+\usepackage{titlesec}
+  \titleformat{\chapter}[hang] %Formato capitulo tipo hang
+    {\bfseries\centering\fontsize{20}{20}\selectfont} %Formato texto
+    {\thechapter.} %Etiqueta
+    {3mm} %Separación entre etiqueta y nombre
+    {} %comandos antes de el cuerpo del titulo
+    [] %comandos después de el cuerpo del titulo
+  \titlespacing{\chapter}
+    {0cm} %Separación izquierda
+    {1cm} %Separación antes del titulo
+    {1cm} %Separación después del titulo
+    [0cm] %Separación izquiera
+  \titleformat{\section}[hang] %Formato capitulo tipo hang
+    {\bfseries\fontsize{18}{18}\selectfont} %Formato texto
+    {\thesection.} %Etiqueta
+    {3mm} %Separación entre etiqueta y nombre
+    {} %comandos antes de el cuerpo del titulo
+    [] %comandos después de el cuerpo del titulo
+  \titlespacing{\section}
+    {0cm} %Separación izquierda
+    {0.5cm} %Separación antes del titulo
+    {0.5cm} %Separación después del titulo
+    [0cm] %Separación izquiera
+  \titleformat{\subsection}[hang] %Formato capitulo tipo hang
+    {\bfseries\fontsize{16}{16}\selectfont} %Formato texto
+    {\thesubsection.} %Etiqueta
+    {3mm} %Separación entre etiqueta y nombre
+    {} %comandos antes de el cuerpo del titulo
+    [] %comandos después de el cuerpo del titulo
+  \titlespacing{\subsection}
+    {0cm} %Separación izquierda
+    {0cm} %Separación antes del titulo
+    {0cm} %Separación después del titulo
+    [0cm] %Separación izquiera
+  \titleformat{\subsubsection}[hang] %Formato capitulo tipo hang
+    {\bfseries\itshape\fontsize{14}{14}\selectfont} %Formato texto
+    {\thesubsubsection.} %Etiqueta
+    {3mm} %Separación entre etiqueta y nombre
+    {} %comandos antes de el cuerpo del titulo
+    [] %comandos después de el cuerpo del titulo
+  \titlespacing{\subsubsection}
+    {0cm} %Separación izquierda
+    {0cm} %Separación antes del titulo
+    {0cm} %Separación después del titulo
+    [0cm] %Separación izquiera
+\usepackage{etoolbox}%Hack por un error en la versión de titlesec
+  \makeatletter
+  \patchcmd{\ttlh@hang}{\parindent\z@}{\parindent\z@\leavevmode}{}{}
+  \patchcmd{\ttlh@hang}{\noindent}{}{}{}
+  \makeatother
+  
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II            OTROS PAQUETES UTILIZADOS           II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+\usepackage{tcolorbox} %Para hacer cajas de colores
+%\usepackage[spanish]{nomencl} %Paquete para generar nomenclatura
+%  \makenomenclature
+\usepackage{longtable} %para tablas largas
+\usepackage{ltxtable} %incuir una tabla desde un documento externo
+\usepackage{listings} %Insertar codigo fuente directamente
+\lstset{frame=Ltb,
+  framerule=0pt,
+  aboveskip=0.5cm,
+  framextopmargin=3pt,
+  framexbottommargin=3pt,
+  framexleftmargin=0.4cm,
+  framesep=0pt,
+  rulesep=.4pt,
+  %
+  stringstyle=\ttfamily,
+  showstringspaces = false,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bfseries,
+  %
+  numbers=left,
+  numbersep=15pt,
+  numberstyle=\tiny,
+  numberfirstline = false,
+  breaklines=true,
+  escapeinside={*@}{@*},
+  literate=
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+    {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+    {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+    {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+    {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+    {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+    {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+    {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+    {€}{{\EUR}}1 {£}{{\pounds}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {·}{{*}}1 
+    {–}{{-}}1 {_}{{\textunderscore}}1
+}
