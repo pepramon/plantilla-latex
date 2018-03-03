@@ -6,27 +6,29 @@
 % II            DESCRIPCIÓN DE LAS MACROS           II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
+% TODO macro incluir imagenes de manera flexible
+
+% Incluir codigo c++ directamente de fuentes
+% \codigoc{Opciones de listing}{ruta relativa fichero}
+
+% Incluir table con entorno ltxtable desde carpeta tablas. Ejemplo achura=\textwidth
+% \tabla{Nombre del fichero}{anchura}
+
+% Entorno enunciado. Caja con título enunciado coloreada de gris. Ejemplo para nuevos entoros
+% \begin{enunciado} \\\end{enunciado}
+
+
 
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-% II                  IMPLEMENTACIÓN                II
+% II           IMPLEMENTACIÓN MACROS                II
 % IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-% Insertar codigo en c++ desde un fichero. El segundo parámetro son datos adicionales
-% \codigoc{ficehro con codigo en c++}{datos adicionales}
-% Ejemplo
-% \codigoc{./programa/datos.cpp}{}
+% Incluir codigo c++ directamente de fuentes
 \newcommand{\codigoc}[2]{
 	\lstinputlisting[language=C++, #2]{#1}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Nuevo comando para insertar una tabla. En este caso estarán dentro de la carpeta tablas, ver la plantilla de la carpeta
-% Se utiliza mediante
-%
-% \tabla{Nombre del fichero}{anchura}
-%
-% donde nombre del fichero es el que está en la carpeta tablas
-% y la anchura es el tamaño que se quiere de tabla. Utilizar \textwidth si se quiere la anchura del texto.
+% Incluir table con entorno ltxtable desde carpeta tablas. Ejemplo achura=\textwidth
 \newcommand{\tabla}[2]{\LTXtable{#2}{./tablas/#1}} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -68,23 +70,11 @@
 	\end{figure}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                                                %%%
-%%%   ______       _                               %%%
-%%%  |  ____|     | |                              %%%
-%%%  | |__   _ __ | |_ ___  _ __ _ __   ___  ___   %%%
-%%%  |  __| | '_ \| __/ _ \| '__| '_ \ / _ \/ __|  %%%
-%%%  | |____| | | | || (_) | |  | | | | (_) \__ \  %%%
-%%%  |______|_| |_|\__\___/|_|  |_| |_|\___/|___/  %%%
-%%%                                                %%%
-%%%                                                %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+% II           IMPLEMENTACIÓN ENTORNOS              II
+% IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
-
+% Entorno enunciado. Caja con título enunciado coloreada de gris. Ejemplo para nuevos entoros
 \newenvironment{enunciado}{% Entorno para los enunciados
     \ifx\salvarSangria\undefined
     \newlength{\salvarSangria}
@@ -92,11 +82,10 @@
     \setlength{\salvarSangria}{\parindent}
     \begin{tcolorbox}[title=Enunciado,parbox=false]
     \setlength{\parindent}{\salvarSangria}
-  }
-	{
+}{
 	\end{tcolorbox}
 	\setlength{\parindent}{\salvarSangria}
-  }
+}
   
 %\newenvironment{enunciado}
   %{Que hacer antes}
